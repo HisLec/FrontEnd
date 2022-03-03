@@ -1,0 +1,50 @@
+.user-access {
+  padding: 8px;
+}
+.user-access select {
+  padding: 4px;
+}
+.admin-remove-button {
+  float: right;
+  width: 30px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 3px;
+  background: rgb(226, 226, 226);
+}
+
+.admin-add-button {
+  float: right;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 7px 18px;
+  background: rgb(226, 226, 226);
+}
+
+@media screen and (max-width: 700px) {
+  .user-index {
+    display: none;
+  }
+  .user-date {
+    display: none;
+  }
+  .table-row-user {
+    grid-template-columns: 1fr 2fr 110px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .user-access {
+    display: none;
+  }
+  .table-row-user {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+@media screen and (max-width: 400px) {
+  .user-search {
+    display: none;
+  }
+}

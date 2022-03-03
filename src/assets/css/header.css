@@ -1,0 +1,326 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.login-button{
+  color: white;
+  display: inline-block;
+  margin-top: 11px;
+  text-decoration: none;
+  padding: 0 15px;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 25px;
+  background: none;
+  border: none;
+}
+/* 관리자용 */
+#admin-main-nav {
+  height: 60px;
+  background: #0b5394;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.admin-main-btn1 {
+  color: white;
+  border: 2px solid white;
+  float: right;
+  padding: 5px 13px;
+  border-radius: 50px;
+  text-decoration: none;
+  margin: 10px 20px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  width: 136px;
+  height: 38px;
+  text-align: center;
+}
+.admin-main-btn2 {
+  color: white;
+  border: 2px solid white;
+  float: right;
+  padding: 5px 13px;
+  border-radius: 50px;
+  text-decoration: none;
+  margin: 10px 20px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  width: 95px;
+  height: 38px;
+  text-align: center;
+  background: none;
+}
+#admin-left-nav {
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 216px;
+  background: white;
+  box-shadow: 2px 1px 5px #ababab;
+}
+#admin-left-nav .logo {
+  width: 164px;
+  margin: 17px auto;
+  display: block;
+}
+#admin-left-nav ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+#admin-left-nav > ul {
+  height: 80vh;
+  overflow-y: scroll;
+}
+
+#admin-left-nav li {
+  padding: 10px 10px 10px 30px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 16px;
+}
+.admin-sub-ul li {
+  padding-left: 50px !important;
+  font-size: 15px !important;
+}
+#admin-left-nav li:hover {
+  background: #03487c33;
+}
+#admin-left-nav .active {
+  background: #03487c33;
+}
+.admin-profile {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  width: 100%;
+  margin: 20px 0;
+  justify-content: center;
+}
+#right-content {
+  margin-left: 216px;
+  /* margin-top: 60px; */
+  min-height: 600px;
+  position: relative;
+}
+.admin-content-wrapper {
+  padding: 40px;
+}
+.admin-nav {
+  text-decoration: none;
+  color: black;
+}
+.user-icon {
+  font-size: 30px;
+  margin-right: 10px;
+}
+.admin-title-header {
+  display: none;
+  margin-top: 60px;
+  color: white;
+  background: #0b5394;
+  height: 80px;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 80px;
+  padding-left: 40px;
+}
+.inst-title-header {
+  display: none;
+  color: white;
+  background: #0b5394;
+  height: 140px;
+  padding: 0 40px;
+}
+.inst-title-header h2 {
+  font-size: 35px;
+  margin-bottom: 10px;
+  padding-top: 30px;
+}
+.inst-title-header p {
+  font-size: 20px;
+}
+/* 유저/강사용 */
+#common-navbar {
+  background: white !important;
+  display: flex;
+  justify-content: space-between;
+  height: 68px;
+  z-index: 12;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.nav-logo {
+  margin-left: 50px;
+  margin-top: -7px;
+}
+.nav-title-wrapper {
+  margin-top: -10px;
+}
+#common-navbar .nav-title {
+  color: black;
+  display: inline-block;
+  margin-top: 11px;
+  text-decoration: none;
+  padding: 0 15px;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 50px;
+  background: none;
+  border: none;
+}
+
+/* 메인용 */
+#main-navbar {
+  /* float: left; */
+  background: transparent !important;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  z-index: 12;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid white;
+  position: absolute;
+}
+#main-navbar .nav-title {
+  color: white;
+  display: inline-block;
+  margin-top: 11px;
+  text-decoration: none;
+  padding: 0 15px;
+  font-weight: 600;
+  font-size: 16px;
+  margin-right: 25px;
+  background: none;
+  border: none;
+}
+
+#main-navbar-mobile {
+  display: none;
+}
+.drawer-toggle {
+  width: 20px;
+  margin-top: 5px;
+}
+.drawer-toggle-common {
+  width: 20px;
+  margin-top: 9px;
+}
+#common-navbar-mobile {
+  display: none;
+}
+.drawer-wrapper {
+  display: none;
+  width: 100vw;
+  position: absolute;
+  z-index: 100;
+  top: 60px;
+}
+
+.drawer-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  height: 90vh;
+  color: white;
+}
+.drawer-left {
+  background-color: #082a6c;
+  padding: 30px 0 0 30px;
+  font-size: 18px;
+  line-height: 34px;
+  display: grid;
+  align-content: space-between;
+  grid-auto-rows: 150px 100px;
+  height: 100%;
+}
+.login-name {
+  color: #999999;
+  font-size: 15px;
+}
+.drawer-right {
+  background-color: #0b5394;
+  padding: 30px 0 0 30px;
+  font-size: 18px;
+  line-height: 34px;
+}
+.active {
+  font-weight: bold;
+}
+.drawer-link {
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+}
+@media screen and (max-width: 1050px) {
+  #admin-main-nav {
+    display: none;
+  }
+  #admin-left-nav {
+    display: none;
+  }
+  #right-content {
+    margin-top: 0;
+    margin-left: 0;
+    top: -60px;
+  }
+  .admin-title-header {
+    display: block;
+  }
+  #admin-navbar-mobile {
+    background: white !important;
+    display: flex;
+    justify-content: space-between;
+    height: 68px;
+    z-index: 12;
+    width: 100%;
+    padding: 15px 10px;
+  }
+  .drawer-wrapper {
+    display: block;
+  }
+}
+@media screen and (max-width: 900px) {
+  #common-navbar {
+    display: none;
+  }
+  #common-navbar-mobile {
+    background: white !important;
+    display: flex;
+    justify-content: space-between;
+    height: 68px;
+    z-index: 12;
+    width: 100%;
+    padding: 15px 10px;
+  }
+}
+@media screen and (max-width: 600px) {
+  #main-navbar-mobile {
+    /* float: left; */
+    background: white !important;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    z-index: 12;
+    width: 100%;
+    padding: 15px 10px;
+    border-bottom: 1px solid white;
+    position: absolute;
+  }
+  #main-navbar {
+    display: none;
+  }
+}
+/* @media screen and (max-width: 450px) {
+
+} */

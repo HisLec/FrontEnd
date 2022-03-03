@@ -1,0 +1,106 @@
+.feedback-wrapper {
+  margin-top: 50px;
+}
+
+.feedback-gallery {
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 35px;
+  margin: 0 22px 30px 22px;
+}
+
+/*feedback image carousel*/
+.feedback-wrapper .swiper-button-next {
+  color: rgba(0, 0, 0, 0.336) !important;
+  right: -5px;
+  top: 35%;
+}
+.feedback-wrapper .swiper-button-next:after,
+.feedback-wrapper .swiper-button-prev:after {
+  font-size: 25px;
+}
+
+.feedback-wrapper .swiper-button-prev {
+  color: rgba(0, 0, 0, 0.336) !important;
+  left: -5px;
+  top: 35%;
+}
+.feedback-wrapper .swiper-pagination-bullet {
+  background-color: rgba(0, 0, 0, 0.336) !important;
+}
+.feedback-wrapper .swiper-button-next:hover,
+.feedback-wrapper .swiper-button-prev:hover {
+  color: rgb(0, 0, 0) !important;
+}
+.feedback-wrapper .swiper-pagination-bullet-active {
+  background-color: rgba(0, 0, 0, 0.61) !important;
+}
+
+.feedback-gallery img {
+  width: 100%;
+  height: 200px;
+}
+
+.feedback-table {
+  margin-top: 40px;
+  border-top: 2px solid #04589c;
+  border-bottom: 2px solid #04589c;
+}
+
+.feedback-row {
+  cursor: pointer;
+  border-bottom: 1px solid #bdbdbd;
+  padding: 13px 30px;
+}
+.feedback-row:last-child {
+  border: none;
+}
+.feedback-info {
+  font-size: 15px;
+  font-weight: bold;
+  /* margin-bottom: 10px; */
+  display: inline-block;
+}
+.feedback-title {
+  margin-right: 40px;
+}
+.feedback-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* margin: 0; */
+}
+.feedback-full-content {
+  overflow: unset;
+  text-overflow: unset;
+  white-space: inherit;
+}
+.feedback-more {
+  margin: 40px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 1000px) {
+  .feedback-gallery img {
+    height: 120px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .feedback-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    grid-row-gap: 10px;
+  }
+  .feedback-gallery img {
+    height: 180px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .feedback-gallery img {
+    height: 130px;
+  }
+}

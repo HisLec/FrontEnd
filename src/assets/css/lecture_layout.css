@@ -1,0 +1,185 @@
+/* .container {
+  max-width: 1082px;
+  margin: 0 auto;
+}
+.main-image {
+  height: 313px;
+}
+.page-background {
+  height: 100%;
+  width: 100%;
+}
+.left-navbar {
+  border-left: 4px solid #336699;
+  height: fit-content;
+  padding: 4px 0 4px 12.5px;
+  margin-left: 25.5px;
+  margin-top: 42px;
+  margin-right: 47px;
+}
+.left-navbar span {
+  cursor: pointer;
+  display: block;
+  font-size: 15px;
+  line-height: 30px;
+}
+.left-navbar span:hover {
+  font-weight: bold;
+}
+.left-active {
+  font-weight: bold;
+}
+.right-content {
+}
+.page-info {
+  position: absolute;
+  bottom: 30px;
+  left: 45px;
+  color: white;
+}
+.page-title {
+  margin-bottom: 15px;
+  font-size: 36px;
+}
+.page-intro {
+  font-size: 18px;
+}
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 200px auto;
+} */
+
+/* lecture profile */
+.profile-wrapper {
+  padding: 20px 36px;
+  margin: 46px 36px 35px 36px;
+  border-top: 2px solid #999999;
+  border-bottom: 2px solid #999999;
+}
+.profile {
+  position: relative;
+  margin-bottom: 35px;
+}
+.profile-image {
+  width: 195px;
+  height: 245px;
+  background: #bdbdbd;
+  margin-right: 40px;
+  display: inline-block;
+}
+.profile-info {
+  position: absolute;
+  bottom: 3px;
+  display: inline-block;
+}
+.profile h1 {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 40px;
+}
+.profile p {
+  font-size: 18px;
+  line-height: 40px;
+}
+.introduce {
+  font-size: 14px;
+  line-height: 24.5px;
+  margin-bottom: 35px;
+}
+.profile-ul {
+  font-size: 14px;
+  line-height: 24.5px;
+  padding-left: 15px;
+}
+.profile-ul li {
+  padding-left: 10px;
+}
+.profile-btn {
+  text-align: center;
+  display: block;
+  margin: 0 auto 40px auto;
+}
+/* profile-edit */
+.profile-edit-wrapper {
+  padding: 20px 36px;
+  margin: 46px 36px 35px 36px;
+  border: 2px solid #999999;
+}
+.profile-edit {
+  position: relative;
+  margin-bottom: 90px;
+}
+.profile-edit input {
+  padding: 4px 9px;
+}
+.profile-file {
+  bottom: -50px;
+  left: 27px;
+  position: absolute;
+}
+.introduce-textarea {
+  width: 100%;
+  height: 150px;
+  padding: 15px;
+}
+.profile-textarea {
+  width: 100%;
+  height: 320px;
+  padding: 15px;
+}
+.agree-ul {
+  font-size: 14px;
+  line-height: 20px;
+  list-style-type: circle;
+  padding-left: 17px;
+}
+.agree-check {
+  box-shadow: 2px 2px 0 rgb(0 0 0 / 20%);
+}
+.profile-info span {
+  display: inline-block;
+  width: 70px;
+}
+.checkbox-wrapper {
+  margin-left: 12px;
+  display: inline-block;
+}
+.file-button {
+  cursor: pointer;
+  padding: 5px 12px;
+  background: rgba(20, 92, 204, 0.2);
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  box-shadow: rgb(0 0 0 / 20%) 2px 2px 0px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.profile-img-content {
+  width: 100%;
+  height: 100%;
+}
+.checkbox-content {
+  vertical-align: middle;
+}
+.checkbox-input {
+  width: 35px !important;
+  vertical-align: middle;
+}
+@media screen and (max-width: 900px) {
+  .table-row-lecture {
+    grid-template-columns: 3fr 1.3fr 1.2fr;
+  }
+}
+@media screen and (max-width: 600px) {
+  .table-row-lecture {
+    grid-template-columns: 3fr 1.3fr;
+  }
+}
+@media screen and (max-width: 400px) {
+  .table-row-lecture {
+    grid-template-columns: 1fr;
+  }
+  .during {
+    display: none;
+  }
+}

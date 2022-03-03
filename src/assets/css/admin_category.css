@@ -1,0 +1,89 @@
+.table-row-category {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 50px 2fr 1fr 1fr 2fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-category button {
+  font-size: 13px !important;
+}
+.input-row {
+  padding: 7px !important;
+}
+.category-radio {
+  width: auto;
+  margin: 6px 5px;
+}
+.table-row-category input {
+  padding: 4px;
+  width: 70%;
+}
+.table-row-category button:hover {
+  background: #0b53941f !important;
+}
+.category-btn-col {
+  padding: 0;
+  padding-top: 6px;
+}
+.new-category {
+  background: #ffff251a;
+}
+.display-none {
+  display: none;
+}
+.categoryAddBtn {
+  width: 24% !important;
+  max-width: 55px !important;
+  font-size: 14px !important;
+  padding: 7px 8px !important;
+}
+.categoryAddInput {
+  height: 37px;
+  width: 70%;
+  margin-right: 10px;
+}
+.academyDate-category:hover .delete-category-btn {
+  visibility: visible;
+}
+.delete-category-btn {
+  visibility: hidden;
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  cursor: pointer;
+  z-index: 1;
+  background: #ff3e3eba;
+  color: white;
+  padding: 0px 5px;
+  font-size: 12px;
+  border-radius: 50%;
+}
+.reject-category {
+  color: rgb(153, 153, 153);
+  padding-top: 14px;
+  font-size: 14px;
+  padding-right: 17px;
+}
+@media screen and (max-width: 600px) {
+  .category-index {
+    display: none;
+  }
+  .table-row-category {
+    grid-template-columns: 1.5fr 1fr 1fr 2fr;
+  }
+}
+@media screen and (max-width: 400px) {
+  .category-index {
+    display: none;
+  }
+  .table-row-category {
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+  }
+  .table-row-category .th {
+    font-size: 13px;
+  }
+  .table-row-category button {
+    padding: 5px 7px !important;
+  }
+}

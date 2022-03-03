@@ -1,0 +1,15 @@
+.table-statistics-1 {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    display: grid;
+    text-align: center;
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.table-statistics-2 {
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    display: grid;
+    text-align: center;
+    border-bottom: 1px solid #bdbdbd;
+}

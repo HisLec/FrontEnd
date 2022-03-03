@@ -1,0 +1,160 @@
+.form-title {
+  display: inline-block;
+  width: 140px;
+}
+.page-info {
+  /* color: black; */
+}
+.m20 {
+  margin: 20px 0;
+}
+.mb8 {
+  margin-bottom: 8px;
+}
+.mb25 {
+  margin-bottom: 25px;
+}
+.mb35 {
+  margin-bottom: 35px;
+}
+.blue-btn {
+  /* width: 115px; */
+  font-size: 13px !important;
+}
+.form-wrapper {
+  border: 2px solid #999999;
+  padding: 45px 36px;
+}
+.form-input {
+  width: 26%;
+  padding: 7px 6px;
+  margin-right: 15px;
+  border: 1px solid #999999;
+}
+.datalist-input {
+  width: 26% !important;
+  margin-right: 15px;
+}
+.datalist-input input {
+  padding: 7px 6px;
+  border: 1px solid black;
+}
+.form-addr {
+  width: 60%;
+  padding: 7px 6px;
+}
+.bold-hr {
+  border: 1px solid #8e8e8e;
+}
+.form-textarea {
+  width: 100%;
+  height: 200px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.select-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 15px;
+  column-gap: 20px;
+  padding: 30px 0 40px 0;
+}
+.select-wrapper select {
+  width: 45%;
+}
+.react-datepicker-wrapper {
+  width: 45% !important;
+}
+.datepicker-input {
+  padding: 11px 6px;
+  display: inline-block;
+  width: 100%;
+}
+.application-time {
+  padding: 2px 6px !important;
+  height: 29px !important;
+  font-size: 13px !important;
+  margin-right: 7px !important;
+}
+.application-time:hover {
+  background: rgba(20, 92, 204, 0.2) !important;
+}
+.application-time-select {
+  background: rgba(20, 92, 204, 0.2) !important;
+}
+
+@media screen and (max-width: 900px) {
+  .page-info h2 {
+    font-size: 40px;
+  }
+  .page-info p {
+    font-size: 20px;
+  }
+  .form-title {
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .form-wrapper {
+    padding: 45px 15px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .page-info h2 {
+    font-size: 35px;
+  }
+  .page-info p {
+    font-size: 18px;
+  }
+  .page-info {
+    left: 35px;
+  }
+  .form-wrapper {
+    padding: 45px 15px;
+  }
+  .form-input {
+    width: 30%;
+  }
+  .form-addr {
+    width: 70%;
+  }
+  .select-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .select-wrapper select {
+    width: 30%;
+  }
+  .blue-btn {
+    width: 80px !important;
+    height: 30px !important;
+    font-size: 11px !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .page-info h2 {
+    font-size: 30px;
+  }
+  .page-info p {
+    font-size: 15px;
+  }
+  .form-title {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-input {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .form-addr {
+    width: 100%;
+  }
+  .select-wrapper select {
+    width: 100%;
+  }
+  .form-wrapper {
+    padding: 45px 20px;
+  }
+}

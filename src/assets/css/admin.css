@@ -1,0 +1,271 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.mr25 {
+  margin-right: 25px !important;
+}
+.main-content-wrapper {
+  background: #dfe0e0;
+  padding: 30px 25px;
+  border-radius: 40px;
+}
+.instructor-title {
+  grid-column: auto / span 2;
+}
+.main-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+.justify-start {
+  justify-content: start !important;
+}
+.main-sub-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  overflow: hidden;
+  flex-wrap: wrap;
+  row-gap: 40px;
+  padding: 0 25px;
+}
+.img-wrapper {
+  width: 23%;
+  min-width: 180px;
+  text-align: center;
+  line-height: 15px;
+}
+.admin-main-remove {
+  margin: 0 4px 0 15px;
+}
+.default-img {
+  display: block;
+  margin: 0 auto 10px auto;
+  width: 100%;
+  max-width: 202px;
+  height: 126px;
+  background: #999999;
+}
+.position-r {
+  position: relative;
+}
+.size-wrapper {
+  position: absolute;
+  bottom: 30px;
+  width: 150px;
+}
+.size-input {
+  padding: 10px;
+  width: 70px;
+  height: 35px;
+  margin: 3px 5px 0px -1px;
+}
+.sec-input {
+  padding: 10px;
+  width: 70px;
+  height: 35px;
+  margin-right: 3px;
+}
+.info-textarea {
+  width: 550px;
+  height: 255px;
+  margin-left: 50px;
+  padding: 20px;
+}
+.img-inst-wrapper {
+  width: 21%;
+  min-width: 170px;
+  max-width: 260px;
+  text-align: center;
+}
+.default-inst-img {
+  width: 100%;
+  max-width: 180px;
+  height: 334px;
+  display: inline-block;
+  background: #999999;
+  margin-bottom: 16px;
+}
+.search-inst-wrapper {
+  margin: 15px auto 0 auto;
+  max-width: 180px;
+  width: 100%;
+  display: inline-block;
+}
+.admin-main-img-content {
+  width: 100%;
+  height: 100%;
+  max-width: inherit;
+}
+.search-wrapper {
+  margin-top: 15px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 35px;
+}
+.search-input {
+  padding: 10px;
+  margin-right: 10px;
+  width: 100%;
+}
+.search-btn {
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid grey;
+  width: 35px;
+  height: 35px;
+}
+.calendar-btn {
+  background: #cccccc;
+  padding: 20px;
+  font-size: 18px;
+  border-radius: 15px;
+  border: 1px solid black;
+  margin-top: 15px;
+}
+.input-file-button {
+  background: white;
+  border: 1px solid black;
+  font-size: 14px;
+  width: 85px;
+  height: 25px;
+  border-radius: 6px;
+  display: inline-block;
+  text-align: center;
+  padding-top: 3.5px;
+}
+.img-lecture-wrapper {
+  width: 29.5%;
+  min-width: 200px;
+  max-width: 300px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.default-lecture-img {
+  width: 100%;
+  max-width: 252px;
+  height: 156px;
+  display: inline-block;
+  background: #999999;
+  margin-bottom: 16px;
+}
+.search-lecture-wrapper {
+  margin: 15px auto 0 auto;
+  max-width: 252px;
+  width: 100%;
+  display: inline-block;
+}
+.search-icon {
+  font-size: 16px;
+  color: #999999;
+}
+.main-sub-lecture-wrapper {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 50px;
+  overflow: hidden;
+  flex-wrap: wrap;
+  row-gap: 40px;
+  column-gap: 40px;
+  padding: 0 25px;
+}
+.p4020 {
+  padding: 40px 20px !important;
+}
+.phrase-wrapper {
+  padding: 40px;
+}
+.phrase-sub-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-row-gap: 15px;
+  margin-bottom: 15px;
+}
+.phrase-input-short {
+  padding: 7px 0;
+  height: 30px;
+}
+.phrase-sub-wrapper p {
+  line-height: 30px;
+}
+.phrase-p-short {
+  padding-top: 5px;
+  line-height: 13px !important;
+}
+.phrase-sub-wrapper span {
+  font-size: 10px;
+}
+.phrase-sub-wrapper textarea {
+  grid-column: 1 / span 2;
+  height: 80px;
+}
+
+.phrase-hr {
+  border: 0;
+  height: 0.5px;
+  background: #999999;
+  margin: 15px 0 30px;
+}
+@media screen and (max-width: 900px) {
+  .inst-title-header {
+    display: block;
+  }
+
+  .img-wrapper {
+    width: 28%;
+  }
+  .img-inst-wrapper {
+    width: 27%;
+  }
+  .img-lecture-wrapper {
+    width: 28.5%;
+  }
+  .info-textarea {
+    margin-left: 0px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 750px) {
+  .phrase-sub-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 700px) {
+  .img-wrapper {
+    width: 40%;
+  }
+  .img-inst-wrapper {
+    width: 40%;
+  }
+  .img-lecture-wrapper {
+    width: 43%;
+  }
+  .main-title {
+    font-size: 22px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .main-sub-wrapper {
+    justify-content: center !important;
+  }
+  .main-sub-lecture-wrapper {
+    justify-content: center;
+  }
+  .main-second {
+    font-size: 14px;
+  }
+  .main-sub-wrapper {
+    row-gap: 20px;
+  }
+  .main-sub-lecture-wrapper {
+    row-gap: 20px;
+  }
+  .size-wrapper {
+    position: initial;
+  }
+  .no-margin {
+    margin: 0;
+  }
+}

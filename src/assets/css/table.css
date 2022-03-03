@@ -1,0 +1,240 @@
+/* .container {
+  max-width: 1350px;
+} */
+.remove-row {
+  background-color: #f2f2f2;
+  opacity: 0.6;
+}
+
+.table-wrapper {
+  /* display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+    text-align: center; */
+  /* width: fit-content; */
+  border-bottom: 2px solid #04589c;
+}
+.table-name {
+  font-size: 27px;
+  font-weight: 600;
+  position: relative;
+  margin-bottom: 70px;
+}
+.table-row {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 1fr 1fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-stat-inst {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-stat-lecture {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-mypage {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+
+.table-row-mypage2 {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 1fr 3fr 1fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-contact {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 50px 1.5fr 2.5fr 1.2fr 1.7fr;
+  text-align: center;
+  border-bottom: 2px solid #bdbdbd;
+}
+.table-row-inst {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-lec {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 2fr 1fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-church {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr 1fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-mylec {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1.5fr 3fr 2fr 1.2fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-visit {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 50px 2fr 1fr 1fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-user {
+  cursor: pointer;
+  display: grid;
+  /* grid-template-columns: 50px 1fr 2fr 1fr 1.5fr; */
+  grid-template-columns: 50px 2fr 1fr 1.5fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-admin {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 50px 1fr 2fr 1fr 1.5fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row-feedback {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 35px 2fr 120px 1fr 80px;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.table-row:first-child {
+  border: none;
+}
+.table-row:last-child {
+  border: none;
+}
+.table-row-mypage:first-child {
+  border: none;
+}
+.table-row-mypage:last-child {
+  border: none;
+}
+.table-row-inst:first-child {
+  border: none;
+}
+.table-row-inst:last-child {
+  border: none;
+}
+.table-row-lec:first-child {
+  border: none;
+}
+.table-row-lec:last-child {
+  border: none;
+}
+.selected-row {
+  background: #d3dfee;
+}
+.th {
+  font-weight: bold;
+  border-bottom: 2px solid #04589c;
+  padding: 10px;
+}
+.td {
+  padding: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 40px;
+}
+.pagination span {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.pagination span:hover {
+  cursor: pointer;
+  background: #dfe8f1;
+  border-radius: 6px;
+  /* color: #04589c; */
+  font-weight: bold;
+}
+
+/* 강의 세부 내용 */
+.no-detail {
+  display: none;
+}
+.show-lecture-detail {
+  display: block;
+  padding: 40px 30px;
+  margin-top: 50px;
+  background: #d3dfee;
+  border-radius: 18px;
+}
+.detail-title {
+  padding: 0px 25px 8px 25px;
+  border-bottom: 1px solid #202020;
+}
+.detail-date {
+  text-align: right;
+}
+.lecture-detail-date {
+  float: right;
+}
+.detail-sub-info {
+  display: grid;
+  grid-template-columns: 150px auto;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #999999;
+}
+.detail-content {
+  padding: 40px 30px 0 40px;
+  line-height: 25px;
+}
+.detail-instructor {
+  overflow: hidden;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.detail-inst-image {
+  width: 180px;
+  height: 240px;
+  margin-right: 25px;
+}
+.detail-inst-info {
+  width: auto;
+}
+.mb15 {
+  margin-bottom: 15px;
+}
+.fs13 {
+  font-size: 13px;
+}
+.go-form {
+  text-align: center;
+  background: white;
+  padding: 8px 25px;
+  border-radius: 7px;
+  border: 1px solid #bdbdbd;
+  text-decoration: none;
+  color: black;
+  margin: 0 auto;
+  display: block;
+  width: 150px;
+}

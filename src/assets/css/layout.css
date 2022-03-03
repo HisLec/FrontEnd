@@ -1,0 +1,43 @@
+.content-wrapper {
+  /* display:grid; */
+  overflow: hidden;
+  padding: 60px;
+  max-width: 1240px;
+  margin: 0px auto 0 auto;
+  /* grid-template-columns: 1fr 4fr; */
+  /* column-gap: 30px; */
+}
+.left-navbar {
+  width: 20%;
+  float: left;
+  height: fit-content;
+  padding: 2px 30px;
+  border-left: 6px solid #05589c;
+}
+.left-navbar a {
+  text-decoration: none;
+  color: black;
+}
+.left-navbar span {
+  display: block;
+  text-decoration: none;
+  color: black;
+  padding: 7px 0px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/* .left-navbar span:hover {
+
+} */
+.left-active {
+  font-weight: 900;
+}
+.right-content {
+  width: 80%;
+  float: left;
+}

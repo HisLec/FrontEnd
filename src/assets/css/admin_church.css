@@ -1,0 +1,196 @@
+.add-church-title {
+  /* padding: 8px 0; */
+  width: 140px;
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 30px;
+  margin-bottom: 9px;
+}
+#church-info input {
+  border: 1px solid #999999;
+}
+.church-info span {
+  display: inline-block;
+  min-width: 140px;
+  font-size: 14px;
+}
+.read-church-content span {
+  display: inline-block;
+  min-width: 140px;
+}
+.read-church-info span {
+  display: inline-block;
+  min-width: 140px;
+}
+.table-row-modal-church {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 2fr 2fr 1.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1.5fr 2fr 1fr 3fr;
+  text-align: center;
+  border-bottom: 1px solid #bdbdbd;
+}
+.info-admin {
+  width: 170px !important;
+}
+.church-delete {
+  position: absolute;
+  top: 55px;
+  right: 15px;
+}
+.church-grid {
+  display: grid;
+  grid-template-columns: 140px 70%;
+}
+.church-grid span {
+  padding: 0 !important;
+}
+.church-info-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 2px solid black;
+}
+.original {
+  border-right: 2px black dashed;
+}
+.original-info {
+  background: #efefef;
+}
+.original-title {
+  padding: 20px 30px;
+  font-size: 18px !important;
+  font-weight: 500;
+  background: #e1e1e1;
+}
+.change-info {
+  background: #ffffee;
+}
+.change-info-grid {
+  display: grid;
+  grid-template-columns: 130px auto;
+  column-gap: 15px;
+}
+.change-title {
+  padding: 20px 30px;
+  font-size: 18px !important;
+  font-weight: 500;
+  background: #ffffcb;
+}
+.church-flex {
+  display: flex;
+  padding: 6px 0;
+}
+.church-padding {
+  padding: 6px 0;
+}
+.w400 {
+  width: 400px;
+}
+.w158 {
+  width: 158px;
+}
+
+@media screen and (max-width: 1100px) {
+  .table-row-church {
+    grid-template-columns: 1fr 3fr 1.5fr 1fr;
+  }
+  .church-date {
+    display: none;
+  }
+}
+@media screen and (max-width: 900px) {
+  .table-row-church {
+    grid-template-columns: 1fr 1.5fr 1.5fr;
+  }
+  .church-writer {
+    display: none;
+  }
+}
+@media screen and (max-width: 800px) {
+  #church-info input {
+    width: 130px;
+  }
+  .w158 {
+    width: 130px;
+  }
+  .add-church-title {
+    width: 105px;
+    font-size: 14px;
+  }
+  .read-church-content span {
+    font-size: 14px;
+  }
+  .church-grid {
+    grid-template-columns: 140px 350px;
+  }
+  .church-addr {
+    width: 100px;
+  }
+  .original-info {
+    font-size: 14px;
+  }
+  .change-info {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .add-church-title {
+    width: 100%;
+  }
+  .read-church-content span {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  .add-church-title {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 0 !important;
+  }
+  .church-blank {
+    display: none !important;
+  }
+  #church-info input {
+    width: 40%;
+    margin-left: 30px;
+  }
+  .w158 {
+    width: 40%;
+    margin-left: 30px;
+  }
+  .church-grid .add-church-title {
+    margin-left: 0;
+  }
+  .no-left-margin {
+    margin-left: 0 !important;
+  }
+  .church-addr {
+    width: 26% !important;
+  }
+  .church-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+    row-gap: 8px;
+  }
+  .church-grid span {
+    margin: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .table-row-church {
+    grid-template-columns: 1fr 3fr 1.5fr;
+  }
+  .church-writer {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .table-row-church {
+    grid-template-columns: 1fr 3fr;
+  }
+  .church-location {
+    display: none;
+  }
+  .none-buttoon {
+    display: none;
+  }
+}

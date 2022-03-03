@@ -1,0 +1,16 @@
+.tui-full-calendar-weekday-schedule-bullet {
+    position: absolute;
+    padding: 0;
+    width: 10px !important;
+    height: 10px !important;
+    top: 6px !important;
+    left: -3px !important;
+    border-radius: 50%;
+}
+.color-circle {
+    display: inline-block;
+    height: 13px;
+    width: 13px;
+    margin-right: 5px;
+    border-radius: 50%;
+}
