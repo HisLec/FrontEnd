@@ -11,10 +11,10 @@ axios.interceptors.request.use(
   function (config) {
     const today = new Date();
     const path = window.location.href.replace(process.env.REACT_APP_DEFAULT_WHOLE_URL, "");
-    if((window.sessionStorage.getItem("token") == null || window.sessionStorage.getItem('expires_at') < today.getTime())&& !(window.location.href === process.env.REACT_APP_DEFAULT_WHOLE_URL || path === "lecture/subject" || path === "lecture/instructor" || path === "lecture/date" || path === "notice")){
-      alert(path +"로그인 후 사용할 수 있습니다~:)");
-      window.location.href = process.env.REACT_APP_DEFAULT_URL;
-    }
+    // if((window.sessionStorage.getItem("token") == null || window.sessionStorage.getItem('expires_at') < today.getTime())&& !(window.location.href === process.env.REACT_APP_DEFAULT_WHOLE_URL || path === "lecture/subject" || path === "lecture/instructor" || path === "lecture/date" || path === "notice")){
+    //   alert(path +"로그인 후 사용할 수 있습니다~:)");
+    //   window.location.href = process.env.REACT_APP_DEFAULT_URL;
+    // }
     return config;
   },
   function (error) {
