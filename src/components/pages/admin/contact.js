@@ -217,6 +217,8 @@ function AdminContact() {
         setisEdit(false)
         if(clickedContact === null || application !== clickedContact) {
             setClickedContact(application);
+            // console.log('Here!!!!!!!!!!!!!!!');
+            // console.log(clickedContact);
             if(application.date === null)   setContactDate("")
             else setContactDate(application.date)
             if(application.contact_start_date === null)   setContactStartDate("")
@@ -769,6 +771,7 @@ function AdminContact() {
                 <div
                     className="show-lecture-detail"
                 >
+                    
                     <h2 className="mb20">{clickedContact.lecture_name}</h2>
                     <hr className="bold-hr mb25"/>
                     <div className="mb8">
@@ -780,10 +783,11 @@ function AdminContact() {
                         <span>{clickedContact.admin_phone}</span>
                     </div>
                     <hr className="m20"/>
-                    <div className="mb8">
+                    {/* <div className="mb8">
                         <span className="form-title">교회명</span>
                         <span>{clickedContact.church_name}</span>
-                    </div>
+                    </div> */}
+                    
                     <div className="mb8">
                         <span className="form-title">주소</span>
                         <span>{clickedContact.addr1} {clickedContact.addr2}</span>
@@ -827,10 +831,19 @@ function AdminContact() {
                 <div
                     className="show-lecture-detail"
                 >
+                     
                     <h2 className="mb20">{clickedContact.lecture_name}</h2>
                     <hr className="bold-hr mb25"/>
+
+                    {/* <div>now</div>
+                        <div>{clickedContact.status}</div> */}
+
                     {clickedContact.status !== 0 && 
+                    
                     <span>
+                        {/* <div>here!!</div>
+                        <div>{clickedContact.status}</div> */}
+
                         <div className="mb8">
                             <span className="form-title">신청자명</span>
                             <span>{clickedContact.admin_name}</span>
@@ -885,7 +898,7 @@ function AdminContact() {
                     {clickedContact.status === 0 ?
                     <div className="form-btn-wrapper">
                         <button className="form-btn mr15" onClick={contactStart}>연락처 확인하기</button>
-                        {/* <button className="form-btn" onClick={cancelContact}>컨택 취소하기</button> */}
+                        {/* <button className="form-btn mr15" onClick={contactStart}>컨택 시작하기</button> */}
                     </div>
                     : clickedContact.status === 1 ?
                     <div className="form-btn-wrapper">
