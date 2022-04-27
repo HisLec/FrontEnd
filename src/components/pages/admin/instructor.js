@@ -32,7 +32,7 @@ function AdminInstructor() {
 
   // excel upload
   const [excelJSONData, setExcelJSONData] = useState(null);
-  const excelFormat = { email: "000@handong.edu(필수)", name: "강사 이름(필수)", phone: "010-0000-0000", position: "동문/학부모/교수(필수)", intro: "강사 소개", memo: "강사 약력" };
+  const excelFormat = { email: "000@handong.edu(필수)", name: "강사 이름(필수)", phone: "010-0000-0000", position: "총장/동문/학부모/교수(필수)", intro: "강사 소개", memo: "강사 약력" };
   const [errorCount, seterrorCount] = useState(0);
 
   useEffect(() => {
@@ -176,7 +176,7 @@ function AdminInstructor() {
         alert(res.data);
         readInstructor();
         setClickedInstructor(null);
-        setaddInfo({ id: "", position_id: "3", inst_name: "", phone: "", image: "", intro: "", memo: "", position_name: "", email: "" });
+        setaddInfo({ id: "", position_id: "4", inst_name: "", phone: "", image: "", intro: "", memo: "", position_name: "", email: "" });
         closeModal();
       });
     }
@@ -473,6 +473,7 @@ function AdminInstructor() {
                   <span>이름</span>
                   <input name="inst_name" onChange={onAdd} />
                   <select defaultValue={addInfo.position_id} name="position_id" onChange={onAdd}>
+                    <option value="4">총장</option>
                     <option value="3">교수</option>
                     <option value="2">동문</option>
                     <option value="1">학부모</option>
@@ -499,7 +500,7 @@ function AdminInstructor() {
               <p className="mb20">
                 강사의 이름, 이메일, 그룹은 필수 입력 요소입니다.
                 <br />
-                업로드시 intro가 소개를, memo가 약력을 의미합니다. position의 경우 동문, 학부모, 교수 중에서 입력해주세요.
+                업로드시 intro가 소개를, memo가 약력을 의미합니다. position의 경우 총장, 동문, 학부모, 교수 중에서 입력해주세요.
                 <br />
                 빨간 색으로 표시된 것은 업로드 할 수 없는 데이터입니다. 빼고 업로드를 진행할까요?
                 <br />
@@ -576,6 +577,7 @@ function AdminInstructor() {
                       <span className="mb30">이름</span>
                       <input defaultValue={editInfo.inst_name} className="mr15 p48" name="inst_name" onChange={onEdit} />
                       <select defaultValue={editInfo.position_id} name="position_id" className="p48" onChange={onEdit}>
+                        <option value="4">총장</option>
                         <option value="3">교수</option>
                         <option value="2">동문</option>
                         <option value="1">학부모</option>
@@ -672,7 +674,7 @@ function AdminInstructor() {
                   ))} */}
                   {clickedInstructor.intro.split("\n").map((item, i) => (item === "\r" ? <br /> : <div>{item}</div>))}
                 </div>
-                <p className="mb10 bold-font">약력 작성란~~~</p>
+                <p className="mb10 bold-font">약력 작성란</p>
                 <div className="mb25">
                   {/* {clickedInstructor.memo.split("\r\n").map((item, i) => (
                     <div key={i}>{item}</div>
