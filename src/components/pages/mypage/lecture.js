@@ -640,6 +640,11 @@ function MypageLecture(props) {
       alert("강의 가능 지역을 선택해주세요.");
       return;
     }
+
+    // if (regionDataByLecture.find((element) => element.id === 0)) {
+    //   setregionDataByLecture({ id: "0", name: "전국", status: "1" });
+    // }
+
     if (topicDataByLecture.find((element) => element.status === 1) === undefined) {
       alert("강의 주제를 선택해주세요.");
       return;
@@ -665,7 +670,7 @@ function MypageLecture(props) {
 
     if (window.confirm("강의를 수정하시겠습니까?")) {
       axios({
-        url: process.env.REACT_APP_RESTAPI_HOST + "lecture",
+        url: process.env.REACT_APP_RESTAPI_HOST + "lecture/update",
         method: "put",
         data: {
           ...editLectureInfo,
