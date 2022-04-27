@@ -552,7 +552,7 @@ function AdminLecture(props) {
       setnotUsingCalendar(false);
 
       readAllLecture();
-      alert("강의를 추가했습니다~:)");
+      alert("강의를 추가했습니다.");
       closeModal();
     }
   };
