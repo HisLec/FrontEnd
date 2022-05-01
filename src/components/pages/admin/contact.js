@@ -12,6 +12,7 @@ import GreyButton from "../../modules/button/admin_grey_btn";
 import BlueButton from "../../modules/button/admin_blue_btn";
 import WhiteButton from "../../modules/button/admin_white_btn";
 import CommonModal from "../../modules/modal/common";
+import { faSort } from "@fortawesome/free-solid-svg-icons";
 
 function AdminContact() {
   const [keyword, setKeyword] = useState("");
@@ -135,7 +136,10 @@ function AdminContact() {
         manageID: window.sessionStorage.getItem("id"),
       },
     });
-    setapplicationInfo(response.data);
+    const responseList = response.data;
+    responseList.sort((a) => (a.status === 0 ? -1 : 1));
+    setapplicationInfo(responseList);
+
     setKeyword("");
   };
 
@@ -740,7 +744,6 @@ function AdminContact() {
                 </div>
               </div>
             </CommonModal>
-
             <div className="mb20">
               <select
                 defaultValue={statusSelect}

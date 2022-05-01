@@ -1,6 +1,6 @@
 {
   "name": "course_application_management",
-  "homepage": "http://localhost:8080/",
+  "homepage": "http://localhost:8080",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
