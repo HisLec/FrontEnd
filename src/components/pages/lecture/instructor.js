@@ -14,6 +14,9 @@ import "../../../assets/css/layout.css";
 import "../../../assets/css/lecture.css";
 import "../../../assets/css/table.css";
 import "../../../assets/css/feedback.css";
+import "../../../assets/css/slick.css";
+import "../../../assets/css/slick-theme.css";
+import Slider from "react-slick";
 
 function LectureInstructor(props) {
   const [selectedLecture, setSelectedLecture] = useState(null);
@@ -31,6 +34,8 @@ function LectureInstructor(props) {
   const [feedbackPostsPerPage, setfeedbackPostsPerPage] = useState(10);
 
   const [instructorData, setInstructorData] = useState(null);
+  const [totalInstructorData, setTotalInstructorData] = useState([]);
+  const [totalInstructorId, setTotalInstructorId] = useState([]);
   const [instructorLoading, setInstructorLoading] = useState(null);
   const [lectureLoading, setLectureLoading] = useState(false);
   const [lectureData, setLectureData] = useState(null);
@@ -53,7 +58,7 @@ function LectureInstructor(props) {
     readFeedback();
     readFeedbackFile();
     readSettingInfo();
-    document.getElementsByClassName("swiper-button-next")[0].click();
+    // document.getElementsByClassName("swiper-button-next")[0].click();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -90,6 +95,8 @@ function LectureInstructor(props) {
       var dataUnit = [];
       for (var j = i; j < i + 8 && j < response.data.length; j++) {
         dataUnit.push(response.data[j]);
+        setTotalInstructorData((totalInstructorData) => [...totalInstructorData, response.data[j].inst_name]);
+        setTotalInstructorId((totalInstructorId) => [...totalInstructorId, response.data[j].id]);
       }
       instructorData.push(dataUnit);
     }
@@ -132,6 +139,7 @@ function LectureInstructor(props) {
   };
 
   function selectInstructor(id) {
+    console.log("click! ", id);
     if (selectedInst === id) {
       setSelectedInst(null);
       setinstructorDetail(null);
@@ -290,6 +298,25 @@ function LectureInstructor(props) {
       alert("로그인 후 사용하실 수 있는 기능입니다. 상단에 로그인 버튼을 눌러주세요.");
     }
   }
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return <div className={className} style={{ ...style, display: "block", background: "#F5F5F5", borderRadius: "20px", paddingLeft: "18px", paddingTop: "13px" }} onClick={onClick} />;
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return <div className={className} style={{ ...style, display: "block", background: "#F5F5F5", borderRadius: "20px", paddingLeft: "16px", paddingTop: "13px" }} onClick={onClick} />;
+  }
+  const settings = {
+    dots: true,
+    infinite: false,
+    // speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    centerMode: false,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+  };
 
   return (
     <div>
@@ -334,40 +361,52 @@ function LectureInstructor(props) {
         </div>
         <div className="right-content">
           <div className="subject-carousel">
-            <Swiper
-              spaceBetween={30}
-              effect={"fade"}
-              centeredSlides={true}
-              loop={true}
-              loopFillGroupWithBlank={true}
-              pagination={{
-                clickable: true,
-              }}
-              navigation={true}
-              className="mySwiper"
-            >
-              {instructorLoading === false ? (
-                instructorData.map((data, index) => (
-                  <SwiperSlide key={index}>
-                    <div className="subject-wrapper">
-                      {data.map((dataUnit, index2) => (
-                        <div
-                          key={index2}
-                          className={selectedInst !== dataUnit.id ? "subject " : "subject selected-subject"}
-                          onClick={() => {
-                            selectInstructor(dataUnit.id);
-                          }}
-                        >
-                          {dataUnit.inst_name}
-                        </div>
-                      ))}
-                    </div>
-                  </SwiperSlide>
-                ))
-              ) : (
+            {instructorLoading === false ? (
+              <>
+                <Slider {...settings}>
+                  {instructorData.map((data, index) =>
+                    data.map((dataUnit, index2) => {
+                      if (index2 < 4) {
+                        return (
+                          <div>
+                            {totalInstructorData.length > index * 8 + index2 ? (
+                              <div
+                                key={index2}
+                                className={selectedInst !== totalInstructorId[index * 8 + index2] ? "subject " : "subject selected-subject"}
+                                onClick={() => {
+                                  selectInstructor(totalInstructorId[index * 8 + index2]);
+                                }}
+                              >
+                                {totalInstructorData[index * 8 + index2]}
+                              </div>
+                            ) : (
+                              <div></div>
+                            )}
+                            {totalInstructorData.length > index * 8 + index2 + 4 ? (
+                              <div
+                                key={index2 + 4}
+                                className={selectedInst !== totalInstructorId[index * 8 + index2 + 4] ? "subject " : "subject selected-subject"}
+                                onClick={() => {
+                                  selectInstructor(totalInstructorId[index * 8 + index2 + 4]);
+                                }}
+                              >
+                                {totalInstructorData[index * 8 + index2 + 4]}
+                              </div>
+                            ) : (
+                              <div></div>
+                            )}
+                          </div>
+                        );
+                      }
+                    })
+                  )}
+                </Slider>
+              </>
+            ) : (
+              <>
                 <ReactLoading type="spin" color="#05589c" />
-              )}
-            </Swiper>
+              </>
+            )}
           </div>
           <div className={selectedInst ? "mb40" : "no-detail"}>
             <div className="detail-instructor">
@@ -508,7 +547,7 @@ function LectureInstructor(props) {
 
           <div className="feedback-wrapper">
             <h2 className="main-title mb30">강의 후기({feedbackInfo !== null ? feedbackInfo.length : 0})</h2>
-            <Swiper
+            {/* <Swiper
               spaceBetween={30}
               effect={"fade"}
               centeredSlides={true}
@@ -541,7 +580,31 @@ function LectureInstructor(props) {
               ) : feedbackFileLoading === false ? null : (
                 <ReactLoading type="spin" color="#05589c" />
               )}
-            </Swiper>
+            </Swiper> */}
+
+            {feedbackFileLoading === false && feedbackFile !== null ? (
+              <>
+                <Slider {...settings}>
+                  {feedbackFile.map((data, index) =>
+                    data.map((dataUnit, index2) => {
+                      return (
+                        <img
+                          key={index2}
+                          className=""
+                          src={process.env.REACT_APP_RESTAPI_HOST + "resources/upload/" + dataUnit}
+                          alt="lecture page"
+                          onError={(e) => {
+                            e.target.src = process.env.REACT_APP_DEFAULT_URL + "image/errorImage2.png";
+                          }}
+                        />
+                      );
+                    })
+                  )}
+                </Slider>
+              </>
+            ) : feedbackFileLoading === false ? null : (
+              <ReactLoading type="spin" color="#05589c" />
+            )}
             <div className="feedback-table">
               {feedbackInfo !== null && feedbackInfo.length !== 0 ? (
                 feedbackCurrentPosts(feedbackInfo).map((feedback, index) => (

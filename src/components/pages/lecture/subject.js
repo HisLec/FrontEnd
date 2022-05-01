@@ -2,22 +2,25 @@ import React, { useState, useEffect } from "react";
 import ContentPagination from "react-js-pagination";
 import Calendar from "../../modules/calendar/read_calendar";
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 // import SwiperCore, {
 //     EffectFade, Autoplay, Navigation, Pagination
 //   } from 'swiper/core';
 
-import "swiper/swiper.min.css";
-import "swiper/components/effect-fade/effect-fade.min.css";
-import "swiper/components/navigation/navigation.min.css";
-import "swiper/components/pagination/pagination.min.css";
-
+// import "swiper/components/effect-fade/effect-fade.min.css";
+// import "swiper/components/navigation/navigation.min.css";
+// import "swiper/components/pagination/pagination.min.css";
+import "../../../assets/css/practice.css";
+import "../../../assets/css/slick.css";
+import "../../../assets/css/slick-theme.css";
 import "../../../assets/css/layout.css";
 import "../../../assets/css/lecture.css";
 import "../../../assets/css/table.css";
 import "../../../assets/css/feedback.css";
+
+import Slider from "react-slick";
 
 function LectureSubject(props) {
   const [selectedLecture, setSelectedLecture] = useState(null);
@@ -48,6 +51,7 @@ function LectureSubject(props) {
   const [feedbackFileLoading, setFeedbackFileLoading] = useState(false);
   // const [academyDates, setacademyDates] = useState(null);
   const [settingInfo, setsettingInfo] = useState(null);
+  const [totalCategoryData, setTotalCategoryData] = useState([]);
 
   const today = new Date();
 
@@ -60,6 +64,16 @@ function LectureSubject(props) {
     });
     setsettingInfo(response.data);
   };
+
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return <div className={className} style={{ ...style, display: "block", background: "#F5F5F5", borderRadius: "20px", paddingLeft: "18px", paddingTop: "13px" }} onClick={onClick} />;
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return <div className={className} style={{ ...style, display: "block", background: "#F5F5F5", borderRadius: "20px", paddingLeft: "16px", paddingTop: "13px" }} onClick={onClick} />;
+  }
 
   function feedbackClick(fb) {
     if (selectedFeedback === null) setSelectedFeedback(fb);
@@ -214,18 +228,25 @@ function LectureSubject(props) {
       },
     });
     var categoryData = [];
+    // var totalCategory = [];
 
     for (var i = 0; i < response.data.length; i += 8) {
       var dataUnit = [];
       for (var j = i; j < i + 8 && j < response.data.length; j++) {
         dataUnit.push(response.data[j]);
+        // totalCategory.push(response.data[j]);
+        console.log("i is ", i, " j is ", j, " result is ", response.data[j].name);
+        setTotalCategoryData((totalCategoryData) => [...totalCategoryData, response.data[j].name]);
       }
       categoryData.push(dataUnit);
     }
+
     setSelectedCategoryData(Array(response.data.length).fill(false));
     setCategoryData(categoryData);
+    // setTotalCategoryData(totalCategory);
 
     setCategoryLoading(false);
+    if (!categoryLoading) console.log("!!: ", totalCategoryData);
   };
 
   function selectCategory(topic) {
@@ -257,6 +278,10 @@ function LectureSubject(props) {
     setSelectedLecture(null);
     var subject = "";
     var isSubjectNull = false;
+
+    if (selectedCategoryData[0] === true) {
+    }
+
     for (var i = 0; i < selectedCategoryData.length; i++) {
       if (selectedCategoryData[i] === true) {
         subject += categoryData[parseInt(i / 8)][i - 8 * parseInt(i / 8)].id;
@@ -295,7 +320,8 @@ function LectureSubject(props) {
     readFeedback();
     readFeedbackFile();
     readSettingInfo();
-    document.getElementsByClassName("swiper-button-next")[0].click();
+    // document.getElementsByClassName("swiper-button-next")[0].click();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -312,6 +338,17 @@ function LectureSubject(props) {
 
   const handlePageChange = (page) => {
     setPage(page);
+  };
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    // speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    centerMode: false,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
 
   function currentPosts(tmp) {
@@ -376,48 +413,55 @@ function LectureSubject(props) {
         </div>
         <div className="right-content">
           <div className="subject-carousel">
-            <Swiper
-              spaceBetween={30}
-              //   effect={"fade"}
-              //   centeredSlides={true}
-              //   loop={false}
-              //   loopFillGroupWithBlank={false}
-              //   pagination={{
-              //     clickable: true,
-              //   }}
-              //   navigation={true}
-              className="mySwiper"
-            >
-              {categoryLoading === false ? (
-                categoryData.map((data, index) => (
-                  <>
-                    <p>First~~~~~</p>
-
-                    <SwiperSlide key={index}>
-                      <div className="subject-wrapper">
-                        {data.map((dataUnit, index2) => (
-                          <div
-                            key={index2}
-                            className={selectedCategoryData[index * 8 + index2] === false ? "subject " : "subject selected-subject"}
-                            onClick={() => {
-                              selectCategory(index * 8 + index2);
-                            }}
-                          >
-                            {dataUnit.name}
+            {categoryLoading === false ? (
+              <>
+                <Slider {...settings}>
+                  {categoryData.map((data, index) =>
+                    data.map((dataUnit, index2) => {
+                      if (index2 < 4) {
+                        return (
+                          <div>
+                            {totalCategoryData.length > index * 8 + index2 ? (
+                              <div
+                                key={index2}
+                                className={selectedCategoryData[index * 8 + index2] === false ? "subject " : "subject selected-subject"}
+                                onClick={() => {
+                                  selectCategory(index * 8 + index2);
+                                }}
+                              >
+                                {totalCategoryData[index * 8 + index2]}
+                              </div>
+                            ) : (
+                              <div></div>
+                            )}
+                            {totalCategoryData.length > index * 8 + index2 + 4 ? (
+                              <div
+                                key={index2 + 4}
+                                className={selectedCategoryData[index * 8 + index2 + 4] === false ? "subject " : "subject selected-subject"}
+                                onClick={() => {
+                                  selectCategory(index * 8 + index2 + 4);
+                                }}
+                              >
+                                {totalCategoryData[index * 8 + index2 + 4]}
+                              </div>
+                            ) : (
+                              <div></div>
+                            )}
                           </div>
-                        ))}
-                      </div>
-                    </SwiperSlide>
-                  </>
-                ))
-              ) : (
-                <>
-                  <p>Second~~~~~</p>
-                  <ReactLoading type="spin" color="#05589c" />
-                </>
-              )}
-            </Swiper>
+                        );
+                      }
+                    })
+                  )}
+                </Slider>
+              </>
+            ) : (
+              <>
+                <ReactLoading type="spin" color="#05589c" />
+              </>
+            )}
           </div>
+          {/* </div> */}
+
           <div className="table-wrapper">
             <div className="subject-table-row">
               <div className="th">강사명</div>
@@ -491,7 +535,6 @@ function LectureSubject(props) {
                 <div className="detail-instructor">
                   <img className="detail-inst-image" src={process.env.REACT_APP_RESTAPI_HOST + "resources/upload/" + lectureData[selectedLecture].instructor_image} alt="lecture page" />
                   <div className="detail-inst-info">
-                    {/* <h3 className="mb15">{lectureData[selectedLecture].instructor_name.split("<br/>").map( (item, i) => <div key={i}>{item}</div>)} {lectureData[selectedLecture].instructor_position}</h3> */}
                     <h3 className="mb15">
                       {lectureData[selectedLecture].instructor_name} {lectureData[selectedLecture].instructor_position}
                     </h3>
@@ -538,7 +581,7 @@ function LectureSubject(props) {
 
           <div className="feedback-wrapper">
             <h2 className="main-title mb30">강의 후기({feedbackInfo !== null ? feedbackInfo.length : 0})</h2>
-            <Swiper
+            {/* <Swiper
               spaceBetween={30}
               effect={"fade"}
               centeredSlides={true}
@@ -571,7 +614,30 @@ function LectureSubject(props) {
               ) : feedbackFileLoading === false ? null : (
                 <ReactLoading type="spin" color="#05589c" />
               )}
-            </Swiper>
+            </Swiper> */}
+            {feedbackFileLoading === false && feedbackFile !== null ? (
+              <>
+                <Slider {...settings}>
+                  {feedbackFile.map((data, index) =>
+                    data.map((dataUnit, index2) => {
+                      return (
+                        <img
+                          key={index2}
+                          className=""
+                          src={process.env.REACT_APP_RESTAPI_HOST + "resources/upload/" + dataUnit}
+                          alt="lecture page"
+                          onError={(e) => {
+                            e.target.src = process.env.REACT_APP_DEFAULT_URL + "image/errorImage2.png";
+                          }}
+                        />
+                      );
+                    })
+                  )}
+                </Slider>
+              </>
+            ) : feedbackFileLoading === false ? null : (
+              <ReactLoading type="spin" color="#05589c" />
+            )}
             <div className="feedback-table">
               {feedbackInfo !== null && feedbackInfo.length !== 0 ? (
                 feedbackCurrentPosts(feedbackInfo).map((feedback, index) => (

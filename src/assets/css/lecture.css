@@ -44,11 +44,18 @@
 .subject-wrapper {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2,36px);
+  grid-template-rows: repeat(2, 36px);
   column-gap: 60px;
   row-gap: 20px;
   background-color: white;
   padding: 30px;
+}
+.carousel-slide {
+  border: 2px solid green;
+}
+.carousel-col {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 /*subject category carousel*/
 .subject-carousel .swiper-button-next {
@@ -89,6 +96,8 @@
   margin: 0 auto;
   border: 1px solid #999999;
   box-shadow: 2px 2px 0 #cccccc;
+  margin-right: 35px;
+  margin-bottom: 10px;
 }
 .selected-subject {
   background: #7ca3c740;
