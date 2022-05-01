@@ -24,7 +24,7 @@ function AdminLecture(props) {
   const [selectedLecture, setSelectedLecture] = useState(null);
   const [categoryData, setCategoryData] = useState([]);
 
-  const [addLectureInstId, setaddLectureInstId] = useState("");
+  const [addLectureInstId, setaddLectureInstId] = useState("-");
   const [addLectureName, setAddLectureName] = useState("");
   const [addLectureStartDate, setAddLectureStartDate] = useState("");
   const [addLectureEndDate, setAddLectureEndDate] = useState("");
@@ -209,7 +209,7 @@ function AdminLecture(props) {
         manageID: window.sessionStorage.getItem("id"),
       },
     });
-    setaddLectureInstId(response.data[0].user_id);
+    //setaddLectureInstId(response.data[0].user_id);
     setallInstructors(response.data);
   };
 
@@ -463,7 +463,7 @@ function AdminLecture(props) {
     setSelectedTimeZoneData([]);
     setSelectedCategoryData([]);
     setSelectedRegionData([]);
-    setaddLectureInstId(allInstructors[0].user_id);
+    //setaddLectureInstId(allInstructors[0].user_id);
     setresultDates(null);
     setCalendar(false);
     setnotUsingCalendar(false);
@@ -479,6 +479,11 @@ function AdminLecture(props) {
     if (selectedDayWeekData.find((element) => element === "금")) tempDayWeek.push("금");
     if (selectedDayWeekData.find((element) => element === "토")) tempDayWeek.push("토");
     if (selectedDayWeekData.find((element) => element === "일")) tempDayWeek.push("일");
+
+    if (addLectureInstId === null || addLectureInstId === "-") {
+      alert("교수님을 선택해주세요");
+      return;
+    }
 
     if (addLectureName === null || addLectureName === "") {
       alert("강의 제목을 입력해주세요.");
@@ -860,13 +865,15 @@ function AdminLecture(props) {
               <p className="admin-lecture-date">
                 <span>
                   {allInstructors !== null && allInstructors.length !== 0 ? (
-                    <select className="mr15 p4" defaultValue={addLectureInstId} onChange={(e) => setaddLectureInstId(e.target.value)}>
-                      {allInstructors.map((data) => (
-                        <option key={data.id} value={data.user_id}>
-                          {data.inst_name} {data.position_name}
-                        </option>
-                      ))}
-                      {/* <option>hello</option> */}
+                    <select className="mr15 p4" defaultValue="-" onChange={(e) => setaddLectureInstId(e.target.value)}>
+                      <option value="-">교수님 선택</option>
+                      {allInstructors
+                        .filter((data) => data.del_date === null)
+                        .map((data) => (
+                          <option key={data.id} value={data.user_id}>
+                            {data.inst_name} {data.position_name}
+                          </option>
+                        ))}
                     </select>
                   ) : (
                     <span>강사가 없습니다.</span>
