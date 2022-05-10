@@ -162,7 +162,13 @@ function LectureInstructor(props) {
           manageID: window.sessionStorage.getItem("id"),
         },
       });
+
+      for (var i = 0; i < response.data.length; i++) {
+        response.data[i].intro = response.data[i].intro.replace(/<br\/>/g, "\r\n");
+      }
       setLectureData(response.data);
+
+      console.log(response.data);
 
       setLectureLoading(false);
     } else {
@@ -172,6 +178,10 @@ function LectureInstructor(props) {
           manageID: window.sessionStorage.getItem("id"),
         },
       });
+      for (var i = 0; i < response.data.length; i++) {
+        response.data[i].instructor_memo = response.data[i].instructor_memo.replace(/<br\/>/g, "\r\n");
+        response.data[i].intro = response.data[i].intro.replace(/<br\/>/g, "\r\n");
+      }
       setLectureData(response.data);
 
       setLectureLoading(false);
@@ -430,7 +440,7 @@ function LectureInstructor(props) {
 
           <div className="table-wrapper">
             <div className="subject-table-row">
-              <div className="th">주제명</div>
+              <div className="th">카테고리명</div>
               <div className="th">강의명</div>
               <div className="th date">기간</div>
               <div className="th location">강의 지역</div>
@@ -493,9 +503,16 @@ function LectureInstructor(props) {
                   ) : null}
                 </div>
                 <p className="mb30">
-                  {/* {lectureData[selectedLecture].intro !== null && lectureData[selectedLecture].intro !== "null" && lectureData[selectedLecture].intro !== ""? lectureData[selectedLecture].intro.split("<br/>").map( (item, i) => <div key={i}>{item}</div>):""} */}
                   {lectureData[selectedLecture].intro !== null && lectureData[selectedLecture].intro !== "null" && lectureData[selectedLecture].intro !== ""
-                    ? lectureData[selectedLecture].intro.split("<br/>").map((item, i) => (item === "\r" ? <br /> : <div>{item}</div>))
+                    ? lectureData[selectedLecture].intro.split("\r\n").map((item, i) =>
+                        item === "" ? (
+                          <>
+                            <br />
+                          </>
+                        ) : (
+                          <div>{item}</div>
+                        )
+                      )
                     : ""}
                 </p>
                 {instructorDetail === null && (
@@ -509,7 +526,15 @@ function LectureInstructor(props) {
                         {lectureData[selectedLecture].instructor_intro !== null ? lectureData[selectedLecture].instructor_intro.split("\n").map((item, i) => <div key={i}>{item}</div>) : ""}
                       </p>
                       <p className="fs13">
-                        {lectureData[selectedLecture].instructor_memo !== null ? lectureData[selectedLecture].instructor_memo.split("\n").map((item, i) => <div key={i}>{item}</div>) : ""}
+                        {lectureData[selectedLecture].instructor_memo.split("\r\n").map((item, i) =>
+                          item === "" ? (
+                            <>
+                              <br />
+                            </>
+                          ) : (
+                            <div>{item}</div>
+                          )
+                        )}
                       </p>
                     </div>
                   </div>
