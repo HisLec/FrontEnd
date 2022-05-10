@@ -1,6 +1,6 @@
 #contact-wrapper {
   display: grid;
-  grid-template-columns: 660px auto;
+  grid-template-columns: 700px auto;
   grid-column-gap: 50px;
   column-gap: 50px;
 }
@@ -8,7 +8,7 @@
 .table-row-adcontact {
   cursor: pointer;
   display: grid;
-  grid-template-columns: 70px 2.7fr 1fr 2fr 1.4fr;
+  grid-template-columns: 70px 2.7fr 1fr 2fr 1.6fr;
   text-align: center;
   border-bottom: 2px solid #bdbdbd;
 }

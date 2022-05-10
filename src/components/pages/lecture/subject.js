@@ -27,9 +27,13 @@ function LectureSubject(props) {
   const [selectedFeedback, setSelectedFeedback] = useState(null);
   const [categoryData, setCategoryData] = useState(null);
   const [selectedCategoryData, setSelectedCategoryData] = useState([]);
-  const [categoryLoading, setCategoryLoading] = useState(null);
+  const [categoryLoading, setCategoryLoading] = useState(true);
   const [lectureLoading, setLectureLoading] = useState(null);
   const [lectureData, setLectureData] = useState(null);
+  const [topicData, setTopicData] = useState(null);
+
+  const [arrayData, setArrayData] = useState([]);
+
   const [lectureDetail, setLectureDetail] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const [lectureDetailLoading, setLectureDetailLoading] = useState(null);
@@ -52,6 +56,7 @@ function LectureSubject(props) {
   // const [academyDates, setacademyDates] = useState(null);
   const [settingInfo, setsettingInfo] = useState(null);
   const [totalCategoryData, setTotalCategoryData] = useState([]);
+  const [selectFirst, setSelectFirst] = useState(true);
 
   const today = new Date();
 
@@ -234,23 +239,28 @@ function LectureSubject(props) {
       var dataUnit = [];
       for (var j = i; j < i + 8 && j < response.data.length; j++) {
         dataUnit.push(response.data[j]);
-        // totalCategory.push(response.data[j]);
-        console.log("i is ", i, " j is ", j, " result is ", response.data[j].name);
         setTotalCategoryData((totalCategoryData) => [...totalCategoryData, response.data[j].name]);
       }
       categoryData.push(dataUnit);
     }
 
+    var first_array = Array(response.data.length).fill(false);
+    first_array[0] = true;
+    setArrayData(first_array);
+
     setSelectedCategoryData(Array(response.data.length).fill(false));
+
     setCategoryData(categoryData);
     // setTotalCategoryData(totalCategory);
 
     setCategoryLoading(false);
-    if (!categoryLoading) console.log("!!: ", totalCategoryData);
+    if (response.data.length > 0) {
+      selectFirstCategory(response.data.length);
+    }
   };
 
   function selectCategory(topic) {
-    console.log("------: ", topic);
+    setSelectFirst(false);
     let newArr = selectedCategoryData.map((item, index) => {
       if (topic === index) {
         return !item;
@@ -258,8 +268,40 @@ function LectureSubject(props) {
         return item;
       }
     });
+
+    let count = newArr.filter((element) => true === element).length;
+
+    if (topic !== 0 && newArr[0] === true && count > 1) {
+      newArr[0] = false;
+    } else if (count > 1 && topic === 0) {
+      newArr[0] = true;
+      for (var i = 1; i < newArr.length; i++) {
+        if (newArr[i] === true) newArr[i] = false;
+      }
+    } else if (count === 0) {
+      newArr[0] = true;
+    }
+
     setSelectedCategoryData(newArr);
   }
+
+  const selectFirstCategory = async (topic) => {
+    var newArr = Array(topic).fill(false);
+    newArr[0] = true;
+
+    let count = newArr.filter((element) => true === element).length;
+
+    if (topic !== 0 && newArr[0] === true && count > 1) {
+      newArr[0] = false;
+    } else if (count > 1 && topic === 0) {
+      newArr[0] = true;
+      for (var i = 1; i < newArr.length; i++) {
+        if (newArr[i] === true) newArr[i] = false;
+      }
+    }
+
+    setSelectedCategoryData(newArr);
+  };
 
   const readMainCalendar = async (date, id) => {
     const response = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "calendar/lecture", {
@@ -298,7 +340,16 @@ function LectureSubject(props) {
           manageID: window.sessionStorage.getItem("id"),
         },
       });
+
+      const response_topic = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "lecture/topic", {
+        params: {
+          token: window.sessionStorage.getItem("token"),
+          manageID: window.sessionStorage.getItem("id"),
+        },
+      });
+
       setLectureData(response.data);
+      setTopicData(response_topic.data);
 
       setLectureLoading(false);
     } else {
@@ -308,7 +359,14 @@ function LectureSubject(props) {
           manageID: window.sessionStorage.getItem("id"),
         },
       });
+      const response_topic = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "lecture/topic", {
+        params: {
+          token: window.sessionStorage.getItem("token"),
+          manageID: window.sessionStorage.getItem("id"),
+        },
+      });
       setLectureData(response.data);
+      setTopicData(response_topic.data);
 
       setLectureLoading(false);
     }
@@ -320,6 +378,7 @@ function LectureSubject(props) {
     readFeedback();
     readFeedbackFile();
     readSettingInfo();
+
     // document.getElementsByClassName("swiper-button-next")[0].click();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -415,6 +474,7 @@ function LectureSubject(props) {
           <div className="subject-carousel">
             {categoryLoading === false ? (
               <>
+                {/* {selectCategory} */}
                 <Slider {...settings}>
                   {categoryData.map((data, index) =>
                     data.map((dataUnit, index2) => {
@@ -422,15 +482,39 @@ function LectureSubject(props) {
                         return (
                           <div>
                             {totalCategoryData.length > index * 8 + index2 ? (
-                              <div
-                                key={index2}
-                                className={selectedCategoryData[index * 8 + index2] === false ? "subject " : "subject selected-subject"}
-                                onClick={() => {
-                                  selectCategory(index * 8 + index2);
-                                }}
-                              >
-                                {totalCategoryData[index * 8 + index2]}
-                              </div>
+                              selectFirst === true ? (
+                                index2 === 0 ? (
+                                  <div
+                                    key={index2}
+                                    className=" subject selected-subject"
+                                    onClick={() => {
+                                      selectFirstCategory(index * 8 + index2);
+                                    }}
+                                  >
+                                    {totalCategoryData[index * 8 + index2]}
+                                  </div>
+                                ) : (
+                                  <div
+                                    key={index2}
+                                    className="subject"
+                                    onClick={() => {
+                                      selectCategory(index * 8 + index2);
+                                    }}
+                                  >
+                                    {totalCategoryData[index * 8 + index2]}
+                                  </div>
+                                )
+                              ) : (
+                                <div
+                                  key={index2}
+                                  className={selectedCategoryData[index * 8 + index2] === false ? "subject " : "subject selected-subject"}
+                                  onClick={() => {
+                                    selectCategory(index * 8 + index2);
+                                  }}
+                                >
+                                  {totalCategoryData[index * 8 + index2]}
+                                </div>
+                              )
                             ) : (
                               <div></div>
                             )}
@@ -455,9 +539,7 @@ function LectureSubject(props) {
                 </Slider>
               </>
             ) : (
-              <>
-                <ReactLoading type="spin" color="#05589c" />
-              </>
+              <>{/* <ReactLoading type="spin" color="#05589c" /> */}</>
             )}
           </div>
           {/* </div> */}
@@ -485,9 +567,7 @@ function LectureSubject(props) {
                 </div>
               ))
             ) : lectureLoading === true ? (
-              <div className="lecture-loading">
-                <ReactLoading type="spin" color="rgb(5 88 156 / 47%)" className="lecture-loading-data" width="50px" />
-              </div>
+              <div className="lecture-loading">{/* <ReactLoading type="spin" color="rgb(5 88 156 / 47%)" className="lecture-loading-data" width="50px" /> */}</div>
             ) : (
               <div className="lecture-no-data">선택하신 주제에 해당하는 강의가 없습니다.</div>
             )}
