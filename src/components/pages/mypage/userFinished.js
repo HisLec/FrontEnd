@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import "../../../assets/css/table.css";
 import "../../../assets/css/mypage.css";
 
-const MypageUser = (props) => {
+const MypageUserContacted = (props) => {
   const [selectedLecture, setSelectedLecture] = useState(null);
   const [applicationInfo, setapplicationInfo] = useState(null);
   const [feedbackContent, setFeedbackContent] = useState(null);
@@ -29,6 +29,20 @@ const MypageUser = (props) => {
     readSettingInfo();
   }, []);
 
+  function leftPad(value) {
+    if (value >= 10) {
+      return value;
+    }
+    return `0${value}`;
+  }
+
+  function toStringByFormatting(source, delimiter = "-") {
+    const year = source.getFullYear();
+    const month = leftPad(source.getMonth() + 1);
+    const day = leftPad(source.getDate());
+    return [year, month, day].join(delimiter);
+  }
+
   const readSettingInfo = async () => {
     const response = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "setting", {
       params: {
@@ -38,14 +52,29 @@ const MypageUser = (props) => {
     });
     setsettingInfo(response.data);
   };
+
   const readApplicationForms = async () => {
-    const response = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "application/user/" + window.sessionStorage.getItem("id"), {
+    const response = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "application/user/" + window.sessionStorage.getItem("id") + "/contacted", {
       params: {
         token: window.sessionStorage.getItem("token"),
         manageID: window.sessionStorage.getItem("id"),
       },
     });
-    setapplicationInfo(response.data);
+
+    const today = toStringByFormatting(new Date());
+    var newList = [];
+    var cnt = 0;
+    for (var i = 0; i < response.data.length; i++) {
+      const lectureDate = toStringByFormatting(new Date(response.data[i].date));
+      if (lectureDate <= today) {
+        newList[cnt] = response.data[i];
+        cnt++;
+      }
+    }
+
+    setapplicationInfo(newList);
+
+    // setapplicationInfo(response.data);
   };
 
   const cancelContact = async () => {
@@ -70,33 +99,37 @@ const MypageUser = (props) => {
   };
 
   const insertVisitingLog = async () => {
-    document.getElementsByClassName("ant-btn-icon-only")[1].click();
-    //document.getElementsByClassName("ant-btn-icon-only")[1].click();
-    //const blob = await fetch(base64).then(res => res.blob());
+    if (window.confirm("피드백을 저장하시겠습니까?")) {
+      document.getElementsByClassName("ant-btn-icon-only")[1].click();
 
-    const params = new FormData();
-    const headers = {
-      "Content-type": "multipart/form-data; charset=UTF-8",
-      Accept: "*/*",
-    };
-    //var params = new URLSearchParams();
-    params.append("content", feedbackContent);
-    params.append("lecture_rating", lectureRating);
-    params.append("instructor_rating", instructorRating);
-    params.append("token", window.sessionStorage.getItem("token"));
-    params.append("manageID", window.sessionStorage.getItem("id"));
+      const params = new FormData();
+      const headers = {
+        "Content-type": "multipart/form-data; charset=UTF-8",
+        Accept: "*/*",
+      };
+      //var params = new URLSearchParams();
+      params.append("content", feedbackContent);
+      params.append("lecture_rating", lectureRating);
+      params.append("instructor_rating", instructorRating);
+      params.append("token", window.sessionStorage.getItem("token"));
+      params.append("manageID", window.sessionStorage.getItem("id"));
 
-    for (var i = 0; i < feedbackFile.length; i++) {
-      params.append("file", feedbackFile[i].file);
+      for (var i = 0; i < feedbackFile.length; i++) {
+        params.append("file", feedbackFile[i].file);
+      }
+
+      await axios
+        .post(
+          process.env.REACT_APP_RESTAPI_HOST + "visiting_log/feedback/" + selectedLecture.id, //[loginID]로그인 후 변경
+          params,
+          { headers }
+        )
+        .then(function (res) {
+          readApplicationForms();
+          setSelectedLecture(null);
+          alert("피드백을 저장했습니다.");
+        });
     }
-
-    await axios.post(
-      process.env.REACT_APP_RESTAPI_HOST + "visiting_log/feedback/" + selectedLecture.id, //[loginID]로그인 후 변경
-      params,
-      { headers }
-    );
-    readApplicationForms();
-    setSelectedLecture(null);
   };
 
   const hideModal = () => {
@@ -109,23 +142,39 @@ const MypageUser = (props) => {
   const onRemove = (id) => {};
 
   const selectButton = async (data) => {
-    if (selectedLecture === null || selectedLecture !== data) {
-      if (data.visit_reg_date !== null) {
-        const response = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "visiting_log/feedback/file/" + data.feedback_id, {
-          params: {
-            token: window.sessionStorage.getItem("token"),
-            manageID: window.sessionStorage.getItem("id"),
-          },
-        });
-        setFeedbackFileData(response.data);
-      }
-      setSelectedLecture(data);
-    } else {
-      setSelectedLecture(null);
+    if (data.visit_reg_date !== null) {
+      const response = await axios.get(process.env.REACT_APP_RESTAPI_HOST + "visiting_log/feedback/file/" + data.feedback_id, {
+        params: {
+          token: window.sessionStorage.getItem("token"),
+          manageID: window.sessionStorage.getItem("id"),
+        },
+      });
+      setFeedbackFileData(response.data);
     }
+    setSelectedLecture(data);
   };
 
-  const deleteButton = async (data) => {};
+  const deleteButton = async () => {
+    var value = window.confirm("사용자가 작성한 내용입니다. 삭제할까요?");
+    if (value !== false) {
+      // const response = await axios.get(
+      //     process.env.REACT_APP_RESTAPI_HOST + 'visiting_log/feedback/file/'+data.feedback_id
+      // );
+      axios({
+        url: process.env.REACT_APP_RESTAPI_HOST + "visiting_log/feedback",
+        method: "delete",
+        data: {
+          id: selectedLecture.feedback_id,
+          token: window.sessionStorage.getItem("token"),
+          manageID: window.sessionStorage.getItem("id"),
+        },
+      }).then(function (res) {
+        alert("삭제가 완료되었습니다.");
+        readApplicationForms();
+        setSelectedLecture(null);
+      });
+    }
+  };
 
   const handlePageChange = (page) => {
     setPage(page);
@@ -180,7 +229,7 @@ const MypageUser = (props) => {
               <span className="th">강의 날짜</span>
               <span className="th">강사명</span>
               <span className="th">강의명</span>
-              <span className="th">진행상황</span>
+              <span className="th">컨택 상황</span>
             </div>
             {applicationInfo !== null && applicationInfo.length !== 0 ? (
               currentPosts(applicationInfo).map((data, index) => (
@@ -192,20 +241,18 @@ const MypageUser = (props) => {
                   }}
                 >
                   <span className="td">{data.date}</span>
-                  <span className="td">
-                    {data.inst_name} {data.position_name}
-                  </span>
+                  <span className="td">{data.inst_name}</span>
                   <span className="td">{data.lecture_name}</span>
                   {data.status === 0 ? (
-                    <span className="td">강사 확인전</span>
+                    <span className="td">컨택요청</span>
                   ) : data.status === 1 ? (
-                    <span className="td contact-ing user-ing">진행중</span>
+                    <span className="td">컨택중</span>
                   ) : data.status === 2 && data.visit_reg_date !== null ? (
-                    <span className="td">피드백 완료</span>
+                    <span className="td contact-ok">피드백 완료</span>
                   ) : data.status === 2 ? (
                     <span className="td">피드백 미완료</span>
                   ) : (
-                    <span className="td contact-cancel">취소됨</span>
+                    <span className="td">컨택취소</span>
                   )}
                 </div>
               ))
@@ -250,7 +297,11 @@ const MypageUser = (props) => {
                   ))}
                 </span>
               </div>
-              <p className="feedback-detail-content">{selectedLecture.visit_log}</p>
+              <p className="feedback-detail-content">
+                {selectedLecture.visit_log.split("\n").map((item, i) => (
+                  <div key={i}>{item}</div>
+                ))}
+              </p>
               <div className="feedback-image-swiper-wrapper">
                 <Swiper
                   spaceBetween={30}
@@ -328,6 +379,24 @@ const MypageUser = (props) => {
               <h2 className="mb20">{selectedLecture.lecture_name}</h2>
               <hr className="bold-hr mb25" />
               <div className="mb8">
+                <span className="form-title">강사명</span>
+                <span>{selectedLecture.inst_name}</span>
+              </div>
+              <div>
+                <span className="form-title">강사 연락처</span>
+                <span>{selectedLecture.inst_phone}</span>
+              </div>
+              <hr className="m20" />
+              <div className="mb8">
+                <span className="form-title">신청자명</span>
+                <span>{selectedLecture.admin_name}</span>
+              </div>
+              <div>
+                <span className="form-title">연락처</span>
+                <span>{selectedLecture.admin_phone}</span>
+              </div>
+              <hr className="m20" />
+              <div className="mb8">
                 <span className="form-title">교회명</span>
                 <span>{selectedLecture.church_name}</span>
               </div>
@@ -337,26 +406,13 @@ const MypageUser = (props) => {
                   {selectedLecture.addr1} {selectedLecture.addr2}
                 </span>
               </div>
-              {/* <div className="mb8">
-                                <span className="form-title">대표 연락처</span>
-                                <span>{selectedLecture.phone}</span>
-                            </div>
-                            <div>
-                                <span className="form-title">대표 이메일</span>
-                                <span>{selectedLecture.email}</span>
-                            </div> */}
-              <hr className="m20" />
               <div className="mb8">
-                <span className="form-title">담당자 이름</span>
-                <span>{selectedLecture.admin_name}</span>
-              </div>
-              <div className="mb8">
-                <span className="form-title">담당자 연락처</span>
-                <span>{selectedLecture.admin_phone}</span>
+                <span className="form-title">교회 연락처</span>
+                <span>{selectedLecture.phone}</span>
               </div>
               <div>
-                <span className="form-title">담당자 이메일</span>
-                <span>{selectedLecture.admin_email}</span>
+                <span className="form-title">교회 이메일</span>
+                <span>{selectedLecture.email}</span>
               </div>
               <hr className="m20" />
               <div className="mb8">
@@ -369,35 +425,34 @@ const MypageUser = (props) => {
               </div>
               <div className="mb8">
                 <span className="form-title">원하는 날짜</span>
-                <span>{selectedLecture.date !== null ? selectedLecture.date : "추후협의"}</span>
+                <span>{selectedLecture.date}</span>
               </div>
-              {selectedLecture.date !== null ? (
-                <div className="mb35">
-                  <span className="form-title">원하는 시간대</span>
-                  {selectedLecture.status === 2 ? (
-                    <span>
-                      {selectedLecture.contact_start_date} ~ {selectedLecture.contact_end_date}
-                    </span>
-                  ) : (
-                    <span>{selectedLecture.timezone}</span>
-                  )}
-                </div>
-              ) : null}
-              <hr className="bold-hr mb35" />
+              <div className="mb35">
+                <span className="form-title">원하는 시간대</span>
+                {selectedLecture.status === 2 ? (
+                  <span>
+                    {selectedLecture.contact_start_date} ~ {selectedLecture.contact_end_date}
+                  </span>
+                ) : (
+                  <span>{selectedLecture.timezone}</span>
+                )}
+              </div>
               <div className="mb25 form-grid">
                 <span className="form-title">요청사항</span>
                 <span>
-                  {selectedLecture.memo.split("<br/>").map((item, i) => (
-                    <div key={i}>{item}</div>
-                  ))}
+                  {selectedLecture.memo
+                    .replaceAll("<br/>", "\n")
+                    .split("\n")
+                    .map((item, i) => (
+                      <div key={i}>{item}</div>
+                    ))}
                 </span>
               </div>
+              <hr className="bold-hr mb35" />
               {selectedLecture.status === 0 || selectedLecture.status === 1 ? (
-                <div style={{ textAlign: "center" }}>
-                  <button className="form-btn" onClick={cancelContact}>
-                    컨택 취소하기
-                  </button>
-                </div>
+                <button className="form-btn" onClick={cancelContact}>
+                  컨택 취소하기
+                </button>
               ) : null}
             </div>
           ) : null}
@@ -429,4 +484,4 @@ const MypageUser = (props) => {
   );
 };
 
-export default MypageUser;
+export default MypageUserContacted;

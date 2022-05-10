@@ -386,7 +386,12 @@ function AdminLecture(props) {
         manageID: window.sessionStorage.getItem("id"),
       },
     });
-    setCategoryData(response.data);
+    var categoryData = [];
+    for (var i = 1; i < response.data.length; i++) {
+      categoryData[i] = response.data[i];
+    }
+
+    setCategoryData(categoryData);
   };
 
   const selectCategory = (index) => {
